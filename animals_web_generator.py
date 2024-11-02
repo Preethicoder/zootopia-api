@@ -14,6 +14,8 @@ def serialize_animal(animal):
     output += '<p class="card__text">\n'
     output += '<strong>Diet: </strong>' + f"{animal['characteristics']['diet']}<br/>\n"
     output += '<strong>Location: </strong>' + f"{animal['locations'][0]}<br/>\n"
+    if "color" in animal["characteristics"]:
+        output += '<strong>Color: </strong>' + f"{animal['characteristics']['color']}<br/>\n"
     if "type" in animal["characteristics"]:
         output += '<strong>Type: </strong>' + f"{animal['characteristics']['type']}<br/>\n"
     output += " </p>\n"
