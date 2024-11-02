@@ -10,15 +10,19 @@ animals_data = load_data('animals_data.json')
 def serialize_animal(animal):
     output = ''
     output += '<li class="cards__item">\n'
-    output += '<div class="card__title">' + f'Name: {animal["name"]}' + '</div>\n'
+    output += f'<div class="card__title">Name: {animal["name"]}</div>\n'
     output += '<p class="card__text">\n'
-    output += '<strong>Diet: </strong>' + f"{animal['characteristics']['diet']}<br/>\n"
-    output += '<strong>Location: </strong>' + f"{animal['locations'][0]}<br/>\n"
+    output += '<ul class="animal-details-list">\n'
+    output += f'<li><strong>Diet:</strong> {animal["characteristics"]["diet"]}</li>\n'
+    output += f'<li><strong>Location:</strong> {animal["locations"][0]}</li>\n'
+
     if "color" in animal["characteristics"]:
-        output += '<strong>Color: </strong>' + f"{animal['characteristics']['color']}<br/>\n"
+        output += f'<li><strong>Color:</strong> {animal["characteristics"]["color"]}</li>\n'
     if "type" in animal["characteristics"]:
-        output += '<strong>Type: </strong>' + f"{animal['characteristics']['type']}<br/>\n"
-    output += " </p>\n"
+        output += f'<li><strong>Type:</strong> {animal["characteristics"]["type"]}</li>\n'
+
+    output += '</ul>\n'
+    output += '</p>\n'
     output += '</li>'
     return output
 
