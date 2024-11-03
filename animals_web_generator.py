@@ -26,10 +26,31 @@ def serialize_animal(animal):
     output += '</li>'
     return output
 
+
+
+
+
+skin_types = set()
+for animal in animals_data:
+    #result += serialize_animal(animal)
+    if "skin_type" in animal["characteristics"]:
+        skin_types.add(animal["characteristics"]["skin_type"])
+skin_types = sorted(skin_types)
+
+print("Available skin Type:::")
+for skin_type in skin_types:
+    print(f"{skin_type}")
+
+user_input = input("Please enter the skin type::")
+include_missing = input("\nDo you want to include animals without a skin_type? (yes/no): ").strip().lower()
+
+
 result =""
 for animal in animals_data:
-    result += serialize_animal(animal)
-
+    if "skin_type" in animal["characteristics"] and animal["characteristics"]["skin_type"] == user_input:
+        result += serialize_animal(animal)
+    if "skin_type" not in animal["characteristics"] and include_missing == "yes":
+        result += serialize_animal(animal)
 
 
 
