@@ -57,8 +57,10 @@ for animal in animals_data:
 with open("animals_template.html","r") as handle:
     html_content = handle.read()
 
+
+
 html_content = html_content.replace("__REPLACE_ANIMALS_INFO__",result)
 
-with open("animals_template.html","w") as handle1:
+with open("animals.html","w") as handle1:
     handle1.write(html_content)
 
