@@ -1,9 +1,9 @@
 import json
 
-def load_data(file_path):
-  """ Loads a JSON file """
-  with open(file_path, "r") as handle:
-    return json.load(handle)
+import requests
+from fontTools.ttLib.tables.otData import otData
+
+API_KEY = "XtqZydX183Zhf+X/9V6fug==rCL9bWK2Qv9MNWKN"
 
 
 
@@ -37,33 +37,27 @@ def write_newhtml(result):
     with open("animals.html", "w") as handle1:
         handle1.write(html_content)
 
-    print("The new html content has been added successfully in animals.html")
 
 
 def main():
-    animals_data = load_data('animals_data.json')
-    skin_types = set()
-    for animal in animals_data:
-        # result += serialize_animal(animal)
-        if "skin_type" in animal["characteristics"]:
-            skin_types.add(animal["characteristics"]["skin_type"])
-    skin_types = sorted(skin_types)
 
-    print("Available skin Type:::")
-    for skin_type in skin_types:
-        print(f"{skin_type}")
 
-    user_input = input("Please enter the skin type::")
-    include_missing = input("\nDo you want to include animals without a skin_type? (yes/no): ").strip().lower()
-
-    result = ""
-    for animal in animals_data:
-        if "skin_type" in animal["characteristics"] and animal["characteristics"]["skin_type"] == user_input:
-            result += serialize_animal(animal)
-        if "skin_type" not in animal["characteristics"] and include_missing == "yes":
-            result += serialize_animal(animal)
+    result =""
+    user_input = input("Enter a name of an animal:::")
+    url = f"https://api.api-ninjas.com/v1/animals?name={user_input}"
+    # Include the API key in the headers
+    headers = {
+        "X-Api-Key": API_KEY
+    }
+    res = requests.get(url,headers)
+    animal_data = res.json()
+    with open("text.json","w") as handle:
+        json.dump(animal_data,handle)
+    for index,animal in enumerate(animal_data):
+        result += serialize_animal(animal)
 
     write_newhtml(result)
+    print("Website was successfully generated to the file animals.html.")
 
 if __name__ =="__main__":
     main()
