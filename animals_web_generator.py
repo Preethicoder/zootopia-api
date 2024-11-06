@@ -1,10 +1,4 @@
-import json
-
-import requests
-from fontTools.ttLib.tables.otData import otData
-
-API_KEY = "XtqZydX183Zhf+X/9V6fug==rCL9bWK2Qv9MNWKN"
-
+import data_fetcher
 
 
 def serialize_animal(animal):
@@ -44,18 +38,11 @@ def main():
 
     result =""
     user_input = input("Enter a name of an animal:::")
-    url = f"https://api.api-ninjas.com/v1/animals?name={user_input}"
-    # Include the API key in the headers
-    headers = {
-        "X-Api-Key": API_KEY
-    }
-    res = requests.get(url,headers)
-    animal_data = res.json()
-    with open("text.json","w") as handle:
-        json.dump(animal_data,handle)
+    animal_data = data_fetcher.fetch_data(user_input)
     for index,animal in enumerate(animal_data):
         result += serialize_animal(animal)
-
+    if result == "":
+        result += "The animal \"" + user_input + "\" is not found"
     write_newhtml(result)
     print("Website was successfully generated to the file animals.html.")
 
