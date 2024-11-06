@@ -1,10 +1,13 @@
 import requests
-
-API_KEY = "XtqZydX183Zhf+X/9V6fug==rCL9bWK2Qv9MNWKN"
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def fetch_data(animal_name):
     """fetch the data through API  and return as dict"""
     url = f"https://api.api-ninjas.com/v1/animals?name={animal_name}"
+    API_KEY = os.getenv('API_KEY')
+    print(API_KEY)
     # Include the API key in the headers
     headers = {
         "X-Api-Key": API_KEY
