@@ -1,0 +1,4 @@
+Required libraries to import
+requests
+os
+load_dotenv
